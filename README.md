@@ -23,7 +23,8 @@ python3 -m venv env
 # venv aktivieren
 source ./env/bin/activate
 # pakete im venv installieren
-python -m pip install -r requirements.txt
+# https://stackoverflow.com/a/40167445/4161736
+pip freeze | grep -v "pkg-resources" > requirements.txt
 ```
 
 ### Lokalen Server starten
