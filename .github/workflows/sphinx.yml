@@ -60,7 +60,8 @@ jobs:
       - uses: ammaraskar/sphinx-problem-matcher@master
       - name: Build Sphinx docs
         run: |
-          make dirhtml
+          cd src
+          make html
           # This fixes broken copy button icons, as explained in
           #   https://github.com/coderefinery/sphinx-lesson/issues/50
           #   https://github.com/executablebooks/sphinx-copybutton/issues/110
@@ -96,7 +97,7 @@ jobs:
           # _gh-pages/branch-* paths, and not including
           # _gh-pages itself.
           find _gh-pages/ -mindepth 1 ! -path '_gh-pages/branch*' -delete
-          rsync -a _build/dirhtml/ _gh-pages/
+          rsync -a _build/html/ _gh-pages/
       # Go through each branch in _gh-pages/branch/, if it's not a
       # ref, then delete it.
       - name: Delete old feature branches
