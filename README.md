@@ -23,8 +23,7 @@ python3 -m venv env
 # venv aktivieren
 source ./env/bin/activate
 # pakete im venv installieren
-# https://stackoverflow.com/a/40167445/4161736
-pip freeze | grep -v "pkg-resources" > requirements.txt
+python -m pip install -r requirements.txt
 ```
 
 ### Lokalen Server starten
@@ -43,5 +42,6 @@ source ./env/bin/activate
 # pakete installieren/aktualisieren/löschen
 pip install some-awesome-stuff
 # änderungen für git persistieren
-pip freeze > requirements.txt
+# https://stackoverflow.com/a/40167445/4161736
+pip freeze | grep -v "pkg-resources" > requirements.txt
 ```
