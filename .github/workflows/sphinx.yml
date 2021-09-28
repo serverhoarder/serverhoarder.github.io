@@ -1,6 +1,15 @@
 # From: https://raw.githubusercontent.com/coderefinery/sphinx-lesson/master/.github/workflows/sphinx.yml
 # From: https://github.com/rkdarst/sphinx-actions-test/blob/master/.github/workflows/sphinx-build.yml
 
+# - install python environment
+# - build sphinx html
+# - clone _gh-pages branch
+# - copy master build into /
+# - copy branch build into /branch/name
+# - commit & push
+
+# afterwards the default ghpages action will deploy everyting
+
 name: sphinx
 on: [push]
 
@@ -14,17 +23,20 @@ jobs:
     name: Build and gh-pages
     runs-on: ubuntu-latest
     steps:
+
       # https://github.com/marketplace/actions/checkout
       - uses: actions/checkout@v2
         with:
           fetch-depth: 0
           lfs: true
+
       # https://github.com/marketplace/actions/setup-python
       # ^-- This gives info on matrix testing.
       - name: Install Python
         uses: actions/setup-python@v2
         with:
           python-version: 3.8
+
       # https://docs.github.com/en/actions/guides/building-and-testing-python#caching-dependencies
       # ^-- How to set up caching for pip on Ubuntu
       - name: Cache pip
@@ -35,6 +47,7 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-pip-
             ${{ runner.os }}-
+
       # https://docs.github.com/en/actions/guides/building-and-testing-python#installing-dependencies
       # ^-- This gives info on installing dependencies with pip
       - name: Install dependencies
@@ -71,7 +84,6 @@ jobs:
           #   https://github.com/readthedocs/sphinx_rtd_theme/pull/1025
           sed -i 's/url_root="#"/url_root=""/' _build/dirhtml/index.html || true
 
-
       # The following supports building all branches and combining on
       # gh-pages
 
@@ -84,6 +96,7 @@ jobs:
           ( git branch gh-pages remotes/origin/gh-pages && git clone . --branch=gh-pages _gh-pages/ ) || mkdir _gh-pages
           rm -rf _gh-pages/.git/
           mkdir -p _gh-pages/branch/
+
       # If a push and default branch, copy build to _gh-pages/ as the "main"
       # deployment.
       - name: Copy new build (default branch)
@@ -98,6 +111,22 @@ jobs:
           # _gh-pages itself.
           find _gh-pages/ -mindepth 1 ! -path '_gh-pages/branch*' -delete
           rsync -a _build/html/ _gh-pages/
+
+      # If a push and not on default branch, then copy the build to
+      # _gh-pages/branch/$brname (transforming '/' into '--')
+      - name: Copy new build (branch)
+        if: |
+          contains(github.event_name, 'push') &&
+          !contains(github.ref, env.DEFAULT_BRANCH)
+        run: |
+          set -x
+          #brname=$(git rev-parse --abbrev-ref HEAD)
+          brname="${{github.ref}}"
+          brname="${brname##refs/heads/}"
+          brdir=${brname//\//--}   # replace '/' with '--'
+          rm -rf   _gh-pages/branch/${brdir}
+          rsync -a _build/html/ _gh-pages/branch/${brdir}
+
       # Go through each branch in _gh-pages/branch/, if it's not a
       # ref, then delete it.
       - name: Delete old feature branches
