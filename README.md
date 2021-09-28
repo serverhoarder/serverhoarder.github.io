@@ -65,3 +65,7 @@ deactivate
 ## Deployment
 
 GitHub Actions. Siehe [.github/workflows/sphinx.yml](.github/workflows/sphinx.yml).
+
+---
+
+Profile Picture: [The First Web Server by Coolcaesar](https://commons.wikimedia.org/wiki/File:First_Web_Server.jpg)
