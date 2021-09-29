@@ -7,9 +7,11 @@ Welcome to serverhoarder's documentation!
 =========================================
 
 .. toctree::
-   :maxdepth: 2
-   :caption: Contents:
+   :maxdepth: 3
+   :caption: Software
+   :glob:
 
+   docs/software/*
 
 
 Indices and tables
