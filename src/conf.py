@@ -28,7 +28,8 @@ author = 'serverhoarders'
 # extensions coming with Sphinx (named 'sphinx.ext.*') or your custom
 # ones.
 extensions = [
-    'sphinx_rtd_theme'
+    'sphinx_rtd_theme',
+    'myst_parser'
 ]
 
 # Add any paths that contain templates here, relative to this directory.
@@ -46,6 +47,10 @@ language = 'de'
 # This pattern also affects html_static_path and html_extra_path.
 exclude_patterns = []
 
+source_suffix = {
+    '.rst': 'restructuredtext',
+    '.md': 'markdown'
+}
 
 # -- Options for HTML output -------------------------------------------------
 

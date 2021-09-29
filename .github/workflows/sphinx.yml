@@ -11,7 +11,7 @@
 # afterwards the default ghpages action will deploy everyting
 
 name: sphinx
-on: [push]
+on: [ push ]
 
 env:
   DEFAULT_BRANCH: "master"
