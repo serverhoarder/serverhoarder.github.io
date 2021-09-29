@@ -1,10 +1,15 @@
-sphinx-docs
-###########
+sphinx-docs (rst)
+#################
+
+.. note::
+
+  Dies ist die **ReStructured** Text Demo Seite.
+  Die Markdown Variante gibt es :doc:`hier <sphinx-docs-markdown>`.
 
 Sphinx ermöglicht das erstellen von Dokumentationen in verschiedenen Formaten
 wie zum Beispiel als Website oder PDF.
 
-.. contents::
+.. contents:: Inhalt
   :local:
 
 Dateien
