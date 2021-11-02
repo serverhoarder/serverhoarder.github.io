@@ -13,7 +13,6 @@ Welcome to serverhoarder's documentation!
 
    docs/software/*
 
-
 Indices and tables
 ==================
 

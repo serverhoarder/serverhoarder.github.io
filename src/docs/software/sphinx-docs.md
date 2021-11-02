@@ -1,11 +1,4 @@
-
-
-# sphinx-docs (md)
-
-```{note}
-Dies ist die **Markdown** Demo Seite.
-Die ReStructuredText Variante gibt es [hier](sphinx-docs-restructuredtext).
-```
+# sphinx-docs
 
 Sphinx ermöglicht das erstellen von Dokumentationen in verschiedenen Formaten
 wie zum Beispiel als Website oder PDF.
